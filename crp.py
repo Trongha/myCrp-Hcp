@@ -140,7 +140,7 @@ if (__name__ == "__main__"):
 		pathNewFolder = "output29102018/" + newFolderName + "/"
 		createFolder(pathNewFolder)
 
-		for start in range(1, len(trainSet), 30):
+		for start in range(1, len(trainSet), 32):
 			finish = start+numSample
 			title = "indexStartTrain_" + str(start) + " - numSample_" + str(numSample)
 
