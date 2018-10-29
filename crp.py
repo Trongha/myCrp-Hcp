@@ -107,11 +107,11 @@ def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, perc
 if (__name__ == "__main__"):
 	dataTrain = myCrpFunctions.readCSVFile("data/1.csv")
 	dataTest = myCrpFunctions.readCSVFile("data/2.csv")
-	'''
+	
 	dataTest += (myCrpFunctions.readCSVFile("data/3.csv"))
 	dataTest += (myCrpFunctions.readCSVFile("data/5.csv"))
 	dataTest += (myCrpFunctions.readCSVFile("data/6.csv"))
-	'''
+	
 
 	if (min(dataTrain) > min(dataTest)) :
 		minOfNorm = min(dataTest) 
@@ -129,13 +129,13 @@ if (__name__ == "__main__"):
 	print("len(trainSet): ", len(trainSet))
 	print("len(testSet): ", len(testSet))
 
-	numSample = 30
+	numSample = 45
 
 	formatSave = ".png"
 
-	for markEpsilon in range(5, 30, 5):
+	for markEpsilon in range(5, 30, 1):
 		epsilon = float(markEpsilon/1000);
-		newFolderName = "epsilon_" + str(epsilon)
+		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample)
 		print("\n------------------------------------------------", newFolderName,"------------------------------------------------\n")
 		pathNewFolder = "output29102018/" + newFolderName + "/"
 		createFolder(pathNewFolder)
