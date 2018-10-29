@@ -87,6 +87,6 @@ if (__name__ == '__main__'):
 
 	f3 = crossRecurrencePlots('crpTest', a, dotSize = 10)
 
-	plt.show()
+	# plt.show()
 
 
