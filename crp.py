@@ -137,7 +137,7 @@ if (__name__ == "__main__"):
 		epsilon = float(markEpsilon/1000);
 		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample)
 		print("\n------------------------------------------------", newFolderName,"------------------------------------------------\n")
-		pathNewFolder = "output29102018/" + newFolderName + "/"
+		pathNewFolder = "output30102018/" + newFolderName + "/"
 		createFolder(pathNewFolder)
 
 		for start in range(1, len(trainSet), 32):
