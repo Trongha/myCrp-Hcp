@@ -130,7 +130,8 @@ if (__name__ == "__main__"):
 	print("len(testSet): ", len(testSet))
 
 	numSample = 45
-	lambd=3
+	myLambd=3
+	myDim=4
 
 	formatSave = ".png"
 
@@ -142,16 +143,20 @@ if (__name__ == "__main__"):
 		epsilon = float(markEpsilon/10000);
 >>>>>>> 24fda93c1339c18ff1e2a7449e9b450601eecd32
 		# epsilon = 0.011;
-		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample)
+		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample) + "-dim_" + str(myDim)
 		print("\n------------------------------------------------", newFolderName,"------------------------------------------------\n")
 		pathNewFolder = "output31102018/" + newFolderName + "/"
 		createFolder(pathNewFolder)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		for start in range(1, len(trainSet), numSample - 2):
 =======
 		for start in range(1, len(trainSet), numSample - lambd):
 >>>>>>> 24fda93c1339c18ff1e2a7449e9b450601eecd32
+=======
+		for start in range(1, len(trainSet), numSample - myLambd):
+>>>>>>> 57091d554b08251a3cf619c77191b80c264216fb
 			finish = start+numSample
 			title = "index_" + str(start) + " - num_" + str(numSample) + " - epsil_" + str(epsilon)
 
@@ -159,7 +164,7 @@ if (__name__ == "__main__"):
 			print("---------------------------", title, "---------------------------\n")
 
 			f2 = predict_diagonal(trainSet[start:finish], testSet ,
-			 						dim=4, tau=2, epsilon=epsilon, lambd=lambd, percent=1, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
+			 						dim=myDim, tau=2, epsilon=epsilon, lambd=myLambd, percent=1, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
 
 	print("\n------------------------------------------Xong!------------------------------------------")
 		
