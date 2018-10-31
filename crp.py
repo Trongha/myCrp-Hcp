@@ -133,7 +133,7 @@ if (__name__ == "__main__"):
 
 	formatSave = ".png"
 
-	for markEpsilon in range(11, 3, -1):
+	for markEpsilon in range(10, 3, -1):
 		epsilon = float(markEpsilon/1000);
 		# epsilon = 0.011;
 		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample)
@@ -141,7 +141,7 @@ if (__name__ == "__main__"):
 		pathNewFolder = "output31102018/" + newFolderName + "/"
 		createFolder(pathNewFolder)
 
-		for start in range(1, len(trainSet), 32):
+		for start in range(1, len(trainSet), numSample - 2):
 			finish = start+numSample
 			title = "indexStartTrain_" + str(start) + " - numSample_" + str(numSample)
 
