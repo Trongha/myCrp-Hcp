@@ -131,7 +131,7 @@ if (__name__ == "__main__"):
 
 	numSample = 45
 	myLambd=3
-	myDim=4
+	myDim=3
 
 	formatSave = ".png"
 
