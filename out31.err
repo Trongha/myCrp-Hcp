@@ -1,0 +1,38 @@
+/home/maitt/programs/lib/python3.6/site-packages/matplotlib/pyplot.py:514: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  max_open_warning, RuntimeWarning)
+Traceback (most recent call last):
+  File "crp.py", line 154, in <module>
+    dim=myDim, tau=2, epsilon=epsilon, lambd=myLambd, percent=1, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
+  File "crp.py", line 99, in predict_diagonal
+    plt.savefig(pathSaveFigure, dpi = 200)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/pyplot.py", line 690, in savefig
+    fig.canvas.draw_idle()   # need this if 'transparent=True' to reset colors
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/backend_bases.py", line 1899, in draw_idle
+    self.draw(*args, **kwargs)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py", line 402, in draw
+    self.figure.draw(self.renderer)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/artist.py", line 50, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/figure.py", line 1649, in draw
+    renderer, self, artists, self.suppressComposite)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/image.py", line 138, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/artist.py", line 50, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/axes/_base.py", line 2610, in draw
+    mimage._draw_list_compositing_images(renderer, self, artists)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/image.py", line 138, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/artist.py", line 50, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/axis.py", line 1187, in draw
+    renderer)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/axis.py", line 1125, in _get_tick_bboxes
+    extent = tick.label1.get_window_extent(renderer)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/text.py", line 930, in get_window_extent
+    bbox, info, descent = self._get_layout(self._renderer)
+  File "/home/maitt/programs/lib/python3.6/site-packages/matplotlib/text.py", line 363, in _get_layout
+    xmin, xmax = txs.min(), txs.max()
+  File "/home/maitt/programs/lib/python3.6/site-packages/numpy/core/_methods.py", line 29, in _amin
+    return umr_minimum(a, axis, None, out, keepdims)
+KeyboardInterrupt
