@@ -131,11 +131,11 @@ if (__name__ == "__main__"):
 
 	numSample = 45
 	myLambd=3
-	myDim=3
+	myDim=1
 
 	formatSave = ".png"
 
-	for markEpsilon in range(85, 1, -1):
+	for markEpsilon in range(20, 1, -1):
 		epsilon = float(markEpsilon/10000);
 		# epsilon = 0.011;
 		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample) + "-dim_" + str(myDim)
