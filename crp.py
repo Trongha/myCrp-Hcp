@@ -133,23 +133,23 @@ if (__name__ == "__main__"):
 
 	formatSave = ".png"
 
-	# for markEpsilon in range(5, 30, 1):
-		# epsilon = float(markEpsilon/1000);
-	epsilon = 0.011;
-	newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample)
-	print("\n------------------------------------------------", newFolderName,"------------------------------------------------\n")
-	pathNewFolder = "output31102018/" + newFolderName + "/"
-	createFolder(pathNewFolder)
+	for markEpsilon in range(11, 3, -1):
+		epsilon = float(markEpsilon/1000);
+		# epsilon = 0.011;
+		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample)
+		print("\n------------------------------------------------", newFolderName,"------------------------------------------------\n")
+		pathNewFolder = "output31102018/" + newFolderName + "/"
+		createFolder(pathNewFolder)
 
-	for start in range(1, len(trainSet), 32):
-		finish = start+numSample
-		title = "indexStartTrain_" + str(start) + " - numSample_" + str(numSample)
+		for start in range(1, len(trainSet), 32):
+			finish = start+numSample
+			title = "indexStartTrain_" + str(start) + " - numSample_" + str(numSample)
 
-		pathSave = pathNewFolder + title + formatSave
-		print("-------------------------------------", title, "-------------------------------------\n")
+			pathSave = pathNewFolder + title + formatSave
+			print("---------------------------", title, "---------------------------\n")
 
-		f2 = predict_diagonal(trainSet[start:finish], testSet ,
-		 						dim=4, tau=2, epsilon=epsilon, lambd=3, percent=1, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
+			f2 = predict_diagonal(trainSet[start:finish], testSet ,
+			 						dim=4, tau=2, epsilon=epsilon, lambd=3, percent=1, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
 
 	print("\n------------------------------------------Xong!------------------------------------------")
 		
