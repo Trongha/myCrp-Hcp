@@ -2,15 +2,15 @@ import matplotlib.pyplot as plt
 import csv
 import numpy as np 
 
-def readCSVFile(path, numOfCol = 0):
-	col6 = []
+def readCSVFile(path, indexOfCol = 0):
+	col = []
 	with open(path, 'r') as File:
 		thisCSVFile = csv.reader(File)
 		for hang in thisCSVFile:
-			hang[5] = float(hang[5])
-			if (hang[5] > 0):
-				col6.append(hang[5])
-	return col6
+			hang[indexOfCol] = float(hang[indexOfCol])
+			if (hang[indexOfCol] > 0):
+				col.append(hang[indexOfCol])
+	return col
 def lineGraph(ySet):
 	# print(ySet)
 	plt.plot(ySet, label = 'trainSet')
@@ -59,7 +59,7 @@ def crossRecurrencePlots(windowTitle, dataMatrixBinary, dotSize = 0, myTitle = '
 	return scatterGraph(windowTitle , dataX, dataY, dotSize, myTitle , labelX , labelY )
 
 if (__name__ == '__main__'):
-	dataSet = readCSVFile("data/2.csv")
+	dataSet = readCSVFile("data/15_1-SD-2X-DEV_LQC.csv")
 	start = 0;
 
 	#### START-1X = 4840
@@ -87,6 +87,6 @@ if (__name__ == '__main__'):
 
 	f3 = crossRecurrencePlots('crpTest', a, dotSize = 10)
 
-	# plt.show()
+	plt.show()
 
 

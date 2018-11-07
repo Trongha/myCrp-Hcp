@@ -15,27 +15,41 @@ def createFolder(directory):
         print ('Error: Creating directory. ' +  directory)
 
 def state_phase(v, start, dim, tau):
-		
+
 	return [v[start + i*tau] for i in range(0, dim, 1)]
 
-def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, percent=0.6, titleOfGraph = 'Pretty Girl', figureName = 'GrilLikeYou', pathSaveFigure = None):
+
+
+def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, percent=0.6, distNorm = 1,
+	titleOfGraph = 'Pretty Girl', figureName = 'GrilLikeYou', pathSaveFigure = None):
 
 	vectors_train_1 = []
 	for i in range(len(trainSet)-(dim-1)*tau):
 		vectors_train_1.append(state_phase(trainSet, i, dim, tau)) 
 
+	#tách statephases
 	vectors_test_1 = []
 	for i in range(len(testSet)-(dim-1)*tau):
 		vectors_test_1.append(state_phase(testSet, i, dim, tau))
 
+	#ép kiểu về array
 	vectors_train_1 = np.array(vectors_train_1)
 	vectors_test_1 = np.array(vectors_test_1)
 
-	r_dist = cdist(vectors_train_1, vectors_test_1, 'minkowski', p=1)
+	r_dist = cdist(vectors_train_1, vectors_test_1, 'minkowski', p=distNorm)
 
-	r1 = np.array((r_dist < epsilon)-2)
-	# r1 = np.array(r1 - 2)
 	
+	# print('vectors_train.shape: ', vectors_train_1.shape) #in ra shape
+	# print('vectors_test.shape: ', vectors_test_1.shape)
+	# print('r_dist.shape: ', r_dist.shape)
+	# print('r_dist min', r_dist.min())
+	# print('epsilon: ', epsilon)
+	# print('r_dist max', r_dist.max())
+	# print('lambd: ', lambd)
+	
+	r1 = np.array((r_dist < epsilon)-2)
+
+
 	len_r1 = int(np.size(r1[0]))
 	high_r1 = int(np.size(r1)/len_r1)
 
@@ -63,11 +77,12 @@ def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, perc
 	for i_row in range(len(indexSampleOrigin)):
 		for i_in_1_State in range(len(indexSampleOrigin[i_row])):
 			if (indexSampleOrigin[i_row][i_in_1_State] >= 0):
-
+				#Chọn số index state cuối cùng
 				if ((i_in_1_State == len(indexSampleOrigin[i_row]) - 1) or (indexSampleOrigin[i_row][i_in_1_State+1] < 0)):
 					for j in range(((int(dim*percent))-1)*tau):
 						indexSampleOrigin[i_row] = np.insert(indexSampleOrigin[i_row], i_in_1_State+j+1, indexSampleOrigin[i_row][i_in_1_State] + j + 1)
 
+	# Lấy giá trị từ index của sample trong testSet
 	valueOfSample = []
 
 	for i in range(len(indexSampleOrigin)):
@@ -80,8 +95,9 @@ def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, perc
 
 		valueOfSample.append(arr)
 
-	# testSetPr = SyncPredictToTestArr(index_timeseries_test, testSet)
 	f_line = plt.figure(figureName, figsize = (12.8, 7.2), dpi = 100)
+
+	print("_________num predict: ", len(valueOfSample))
 
 	if (len(valueOfSample) > 0):
 		# f_line.set_size_inches(1080, 720)
@@ -92,11 +108,12 @@ def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, perc
 		plt.xlabel('index')
 		plt.ylabel('feature')
 
-		titleOfGraph = titleOfGraph + " - Epsi_" + str(epsilon) + " - lamb_" + str(lambd) + " - dim_" + str(dim)
+		titleOfGraph = titleOfGraph + " - lamb_" + str(lambd) + ' - minkowski_' + str(distNorm) + " - numPredict_" + str(len(valueOfSample))
 		plt.title(titleOfGraph)
 
 		if (pathSaveFigure != None):
 			plt.savefig(pathSaveFigure, dpi = 200)
+		# plt.ylim(ymin = min(trainSet) - 0.09)
 		# plt.show()
 
 	return f_line
@@ -105,13 +122,13 @@ def predict_diagonal(trainSet, testSet, dim=5, tau=2, epsilon=0.7, lambd=3, perc
 ###############################-----________MAIN________-----###############################
 
 if (__name__ == "__main__"):
-	dataTrain = myCrpFunctions.readCSVFile("data/1.csv")
-	dataTest = myCrpFunctions.readCSVFile("data/2.csv")
-	
-	dataTest += (myCrpFunctions.readCSVFile("data/3.csv"))
-	dataTest += (myCrpFunctions.readCSVFile("data/5.csv"))
-	dataTest += (myCrpFunctions.readCSVFile("data/6.csv"))
-	
+
+	indexOfCol = 5
+	print("indexOfCol: ", indexOfCol)
+
+	dataTrain = myCrpFunctions.readCSVFile("data/1.csv", indexOfCol)
+	dataTest = myCrpFunctions.readCSVFile("data/2.csv", indexOfCol)
+	dataTest += (myCrpFunctions.readCSVFile("data/3.csv", indexOfCol))
 
 	if (min(dataTrain) > min(dataTest)) :
 		minOfNorm = min(dataTest) 
@@ -131,19 +148,20 @@ if (__name__ == "__main__"):
 
 	numSample = 45
 	myLambd=3
-	myDim=3
-
+	myDim=4
+	distNorm = 2
 	formatSave = ".png"
 
-	for markEpsilon in range(50, 1, -5):
+	for markEpsilon in range(85, 1, -5):
 		epsilon = float(markEpsilon/10000);
-		# epsilon = 0.011;
-		newFolderName = "epsilon_" + str(epsilon) + "-numSamp_" + str(numSample) + "-dim_" + str(myDim)
+	# epsilon = 0.00345;
+		newFolderName = "col_" + str(indexOfCol) + " - dim_" + str(myDim) + " - numSamp_" + str(numSample) + " - epsilon_" + str(epsilon)
+
 		print("\n------------------------------------------------", newFolderName,"------------------------------------------------\n")
-		pathNewFolder = "output31102018/" + newFolderName + "/"
+		pathNewFolder = "output07112018/" + newFolderName + "/"
 		createFolder(pathNewFolder)
 
-		for start in range(1, len(trainSet), numSample - myLambd):
+		for start in range(2180, len(trainSet), numSample - myLambd):
 			finish = start+numSample
 			title = "index_" + str(start) + " - num_" + str(numSample) + " - epsil_" + str(epsilon)
 
@@ -151,7 +169,9 @@ if (__name__ == "__main__"):
 			print("---------------------------", title, "---------------------------\n")
 
 			f2 = predict_diagonal(trainSet[start:finish], testSet ,
-			 						dim=myDim, tau=2, epsilon=epsilon, lambd=myLambd, percent=1, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
+			 						dim=myDim, tau=2, epsilon=epsilon, lambd=myLambd, percent=1, distNorm=distNorm, titleOfGraph = title,  figureName = title, pathSaveFigure = pathSave)
 
+			# plt.show()
 	print("\n------------------------------------------Xong!------------------------------------------")
+		
 		
