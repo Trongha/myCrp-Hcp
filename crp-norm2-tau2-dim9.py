@@ -148,7 +148,7 @@ if (__name__ == "__main__"):
 
 	numSample = 45
 	myLambd=3
-	myDim=4
+	myDim=9
 	distNorm = 2
 	tau = 2
 	formatSave = ".png"

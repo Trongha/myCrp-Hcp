@@ -150,7 +150,7 @@ if (__name__ == "__main__"):
 	myLambd=3
 	myDim=4
 	distNorm = 2
-	tau = 2
+	tau = 3
 	formatSave = ".png"
 
 	pathFolder = "output03012019/" + "minkowski_" + str(distNorm) + " - tau = " + "/"
